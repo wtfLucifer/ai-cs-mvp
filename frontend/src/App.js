@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_BASE_URL = 'https://ai-cs-mvp-api.vercel.app/';
 // --- Language Translations ---
 const translations = {
   hindi: {
@@ -124,7 +125,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('/api/chat', {
+      const response = await axios.post('https://ai-cs-mvp-api.vercel.app/api/chat', {
         message: inputMessage,
         language: language,
       });
