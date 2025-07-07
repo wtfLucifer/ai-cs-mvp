@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://ai-cs-mvp-api.vercel.app/';
+// --- MODIFIED LINE START ---
+// Make sure this matches the actual domain of your Vercel backend API project.
+// Example: 'https://ai-cs-mvp-api.vercel.app'
+const API_BASE_URL = 'https://ai-cs-mvp-api.vercel.app'; // <--- VERIFY THIS URL CAREFULLY!
+// --- MODIFIED LINE END ---
+
 // --- Language Translations ---
 const translations = {
   hindi: {
@@ -125,13 +130,17 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://ai-cs-mvp-api.vercel.app/api/chat', {
+      // --- MODIFIED LINE START ---
+      // Use the API_BASE_URL variable defined at the top
+      const response = await axios.post(`${API_BASE_URL}/api/chat`, {
+      // --- MODIFIED LINE END ---
         message: inputMessage,
         language: language,
       });
       const aiMessage = { sender: 'ai', text: response.data.reply };
       setChatHistory((prev) => [...prev, aiMessage]);
     } catch (error) {
+      console.error("Error sending message to API:", error.response ? error.response.data : error.message);
       const errorMessage = { sender: 'ai', text: T.error };
       setChatHistory((prev) => [...prev, errorMessage]);
     } finally {
